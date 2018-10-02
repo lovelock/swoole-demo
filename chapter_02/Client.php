@@ -21,6 +21,8 @@ class Client
 
         Event::add($this->socket, [$this, 'onRead'], [$this, 'onWrite']);
         Event::add(STDIN, [$this, 'onInput']);
+
+        fwrite(STDOUT, 'Enter Msg:');
     }
 
     public function onRead()
