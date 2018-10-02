@@ -2,6 +2,8 @@
 
 namespace Demo\Chapter01;
 
+use Swoole\Timer;
+
 class Server
 {
     private $server;
@@ -36,13 +38,17 @@ class Server
     }
 
 
-    public function onWorkerStart(\Swoole\Server $server)
+    public function onWorkerStart(\Swoole\Server $server, $workerId)
     {
-        if ($server->taskworker) {
-            echo "TaskWorker starts\n";
-            sleep(1);
-        } else {
-            echo "Worker starts\n";
+        if ($workerId === 0) {
+            Timer::tick(1000, function ($timerId, $params) {
+                echo "tick timer running\n";
+                echo "recv: {$params}\n";
+            }, 'hello');
+            Timer::after(4000, function () use ($workerId) {
+                echo "after timer running\n";
+                echo "{$workerId}\n";
+            });
         }
     }
 
