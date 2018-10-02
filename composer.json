@@ -9,7 +9,8 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "Demo\\Chapter01\\": "chapter_01"
+            "Demo\\Chapter01\\": "chapter_01",
+            "Demo\\Chapter_02\\": "chapter_02"
         }
     },
     "require-dev": {

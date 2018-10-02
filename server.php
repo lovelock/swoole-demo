@@ -3,11 +3,11 @@
  * Created by PhpStorm.
  * User: Frost Wong <frostwong@gmail.com>
  * Date: 2018/10/2
- * Time: 15:28
+ * Time: 17:04
  */
 
-use Demo\Chapter_02\Client;
+use Demo\Chapter_02\Server;
 
 include_once __DIR__ . '/vendor/autoload.php';
 
-$client = new Client();
+$server = new Server();
