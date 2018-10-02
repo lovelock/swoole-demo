@@ -47,31 +47,35 @@ class Server
     {
         echo "get message from client {$fd}:{$data}\n";
 
-        $data = [
-          'task' => 'task_1',
-          'params' => $data,
-          'fd' => $fd,
-        ];
+        $obj = new TestObject();
+        echo $obj->index, "\n";
 
-        $server->task(json_encode($data));
+        $serialized = serialize($obj);
+
+        $server->task($serialized);
     }
 
     public function onTask(\Swoole\Server $server, $taskId, $fromId, $data)
     {
         echo "this task {$taskId} from worker {$fromId}\n";
-        echo "data: {$data}\n";
 
-        $data = json_decode($data, true);
+        $obj = unserialize($data, [
+            true,
+        ]);
 
-        echo "receive task: {$data['task']}\n";
+        echo $obj->index, "\n";
+        $obj->index = 30;
+        echo $obj->index, "\n";
 
-        $server->send($data['fd'], 'hello task');
+
         return 'Finished';
     }
 
     public function onFinish(\Swoole\Server $server, $taskId, $data)
     {
         echo "task {$taskId} finish\n";
+
+        echo $data->index, "\n";
 
         echo "result: {$data}\n";
     }
