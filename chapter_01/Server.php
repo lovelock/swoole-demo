@@ -18,6 +18,8 @@ class Server
                 'task_worker_num' => 8,
             ]
         );
+
+        $this->server->on('workerStart', [$this, 'onWorkerStart']);
         $this->server->on('Start', [$this, 'onStart']);
         $this->server->on('Connect', [$this, 'onConnect']);
         $this->server->on('Close', [$this, 'onClose']);
@@ -32,6 +34,18 @@ class Server
     {
         echo "start \n";
     }
+
+
+    public function onWorkerStart(\Swoole\Server $server)
+    {
+        if ($server->taskworker) {
+            echo "TaskWorker starts\n";
+            sleep(1);
+        } else {
+            echo "Worker starts\n";
+        }
+    }
+
 
     public function onConnect(\Swoole\Server $server, $fd, $fromId)
     {
@@ -59,23 +73,12 @@ class Server
     {
         echo "this task {$taskId} from worker {$fromId}\n";
 
-        $obj = unserialize($data, [
-            true,
-        ]);
-
-        echo $obj->index, "\n";
-        $obj->index = 30;
-        echo $obj->index, "\n";
-
-
         return 'Finished';
     }
 
     public function onFinish(\Swoole\Server $server, $taskId, $data)
     {
         echo "task {$taskId} finish\n";
-
-        echo $data->index, "\n";
 
         echo "result: {$data}\n";
     }
