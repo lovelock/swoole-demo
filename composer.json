@@ -10,7 +10,8 @@
     "autoload": {
         "psr-4": {
             "Demo\\Chapter01\\": "chapter_01",
-            "Demo\\Chapter_02\\": "chapter_02"
+            "Demo\\Chapter_02\\": "chapter_02",
+            "Demo\\Chapter_03\\": "chapter_03"
         }
     },
     "require-dev": {
