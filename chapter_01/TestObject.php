@@ -6,7 +6,7 @@
  * Time: 15:49
  */
 
-namespace Demo\Chapter01;
+namespace Demo\Chapter_01;
 
 
 class TestObject
