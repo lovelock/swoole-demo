@@ -7,3 +7,4 @@ services:
         volumes:
             - "./:/var/www"
         command: "php -S 0.0.0.0:8080 -t /var/www"
+        network_mode: host
