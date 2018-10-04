@@ -126,7 +126,8 @@ class BaseProcess
     {
         Event::add($worker->pipe, function ($pipe) use ($worker) {
             $data = $worker->read();
-            if ($data === 'exit' . "\r") {
+            if ($data === $worker->pid . ': exit' . "\r") {
+                echo $worker->pid . ' exiting', "\n";
                 $worker->exit(0);
                 exit;
             }
@@ -139,15 +140,5 @@ class BaseProcess
             $worker->write('' . $worker->pid);
         });
 
-        $this->registerSignal();
-    }
-
-    private function registerSignal(): void
-    {
-        Process::signal(SIGCHLD, function ($signo) {
-            while ($ret = Process::wait(false)) {
-                echo "PID = {$ret['PID']}\n";
-            }
-        });
     }
 }
