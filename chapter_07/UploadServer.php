@@ -21,6 +21,10 @@ class UploadServer
     {
         $this->server = new Server('0.0.0.0', 9501);
 
+        $this->server->set([
+            'max_package_length' => 20000000, // 需要上传大文件时要设置此配置
+        ]);
+
         $this->server->on('Request', [$this, 'onRequest']);
 
         $this->server->start();
