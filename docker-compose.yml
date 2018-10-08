@@ -1,9 +1,9 @@
 version: '3.4'
 services:
     swoole:
-        image: "zaherg/php72-swoole"
+        image: "twosee/swoole-coroutine"
         ports:
-            - "9501:9501"
+            - "9508:9508"
         volumes:
-            - "./:/var/www"
+            - "./:/root/src"
         command: "php -S 127.0.0.1:8888 -t ."
