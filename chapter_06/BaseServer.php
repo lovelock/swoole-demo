@@ -46,6 +46,7 @@ class BaseServer
         $this->server->on('start', [$this, 'onStart']);
         $this->server->set([
             'worker_num' => $this->numWorker,
+            'daemonize' => true,
 //            'task_worker_num' => $this->numTaskWorker,
         ]);
 
