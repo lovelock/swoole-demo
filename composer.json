@@ -6,7 +6,9 @@
             "email": "frostwong@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "ext-redis": "*"
+    },
     "autoload": {
         "psr-4": {
             "Demo\\": "./"
